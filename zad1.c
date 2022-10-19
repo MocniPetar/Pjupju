@@ -29,6 +29,7 @@ int main(void){
     scanf(" %s", filename);
 
     numOfStudents = countNumberOfStudents(fp,filename);
+    printf("Number of students in the file %s: %d\n",filename, numOfStudents);
     st = (student *)malloc(sizeof(student) * numOfStudents);
 
     DataEntry(fp,st,filename,numOfStudents);
@@ -46,7 +47,7 @@ int countNumberOfStudents(FILE *fp, char filename[LENGHT_OF_FILE_NAME]){
     fp = fopen(filename , "r");
     if (fp == NULL){
         printf("Error occurred while opening %s", filename);
-        exit(EXIT_FAILURE);
+        return FILE_DID_NOT_OPEN;
     }
 
     while(!feof(fp)){
