@@ -46,7 +46,7 @@ int countNumberOfStudents(FILE *fp, char filename[LENGHT_OF_FILE_NAME]){
     fp = fopen(filename , "r");
     if (fp == NULL){
         printf("Error occurred while opening %s", filename);
-        return FILE_DID_NOT_OPEN;
+        exit(EXIT_FAILURE);
     }
 
     while(!feof(fp)){
@@ -68,7 +68,7 @@ void UnosPodataka(FILE *fp, student *st, char filename[LENGHT_OF_FILE_NAME],int 
     fp = fopen(filename, "r");
     if (fp == NULL){
         printf("Error occurred while opening %s", filename);
-        exit(FILE_DID_NOT_OPEN);
+        exit(EXIT_FAILURE);
     }
 
     fscanf(fp,"%*[^\n]\n"); //Za preskocit prvi red u tekst datoteci
@@ -88,7 +88,7 @@ void Ispis(FILE *fp,student *st, int n,char filename[LENGHT_OF_FILE_NAME]){
     fp = fopen(filename, "r");
     if (fp == NULL){
         printf("Error occurred while opening %s", filename);
-        exit(FILE_DID_NOT_OPEN);
+        exit(EXIT_FAILURE);
     }
 
     fscanf(fp,"%*s %*s %*s %d", &maxBrojBodova); //Sa %*s ignoriramo inpute tipa string
