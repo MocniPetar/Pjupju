@@ -27,15 +27,8 @@ int main(void){
 
     printf("Enter the name of the file:\nC>: ");
     scanf(" %s", filename);
-    
-    fp = fopen(filename , "r");
-    if (fp == NULL){
-        printf("Error occurred while opening %s", filename);
-        return FILE_DID_NOT_OPEN;
-    }
 
     numOfStudents = countNumberOfStudents(fp,filename);
-
     st = (student *)malloc(sizeof(student) * numOfStudents);
 
     UnosPodataka(fp,st,filename,numOfStudents);
@@ -51,6 +44,10 @@ int countNumberOfStudents(FILE *fp, char filename[LENGHT_OF_FILE_NAME]){
     int counter = 0;
 
     fp = fopen(filename , "r");
+    if (fp == NULL){
+        printf("Error occurred while opening %s", filename);
+        return FILE_DID_NOT_OPEN;
+    }
 
     while(!feof(fp)){
         fgets(buffer,MAX_LENGHT_OF_LINE,fp);
@@ -64,10 +61,15 @@ int countNumberOfStudents(FILE *fp, char filename[LENGHT_OF_FILE_NAME]){
 }
 
 void UnosPodataka(FILE *fp, student *st, char filename[LENGHT_OF_FILE_NAME],int n){
-
-    fp = fopen(filename, "r");
+    
     char buffer[MAX_LENGHT_OF_LINE] = { 0 };
     int i;
+    
+    fp = fopen(filename, "r");
+    if (fp == NULL){
+        printf("Error occurred while opening %s", filename);
+        exit(FILE_DID_NOT_OPEN);
+    }
 
     fscanf(fp,"%*[^\n]\n"); //Za preskocit prvi red u tekst datoteci
 
@@ -82,7 +84,12 @@ void Ispis(FILE *fp,student *st, int n,char filename[LENGHT_OF_FILE_NAME]){
 
     char buffer[MAX_LENGHT_OF_LINE] = { 0 };
     int maxBrojBodova;
+    
     fp = fopen(filename, "r");
+    if (fp == NULL){
+        printf("Error occurred while opening %s", filename);
+        exit(FILE_DID_NOT_OPEN);
+    }
 
     fscanf(fp,"%*s %*s %*s %d", &maxBrojBodova); //Sa %*s ignoriramo inpute tipa string
 
