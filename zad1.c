@@ -27,6 +27,12 @@ int main(void){
 
     printf("Enter the name of the file:\nC>: ");
     scanf(" %s", filename);
+    
+    fp = fopen(filename , "r");
+    if (fp == NULL){
+        printf("Error occurred while opening %s", filename);
+        return FILE_DID_NOT_OPEN;
+    }
 
     numOfStudents = countNumberOfStudents(fp,filename);
 
@@ -35,6 +41,7 @@ int main(void){
     UnosPodataka(fp,st,filename,numOfStudents);
     Ispis(fp,st,numOfStudents,filename);
 
+    fclose(fp);
     return EXIT;
 }
 
@@ -44,10 +51,6 @@ int countNumberOfStudents(FILE *fp, char filename[LENGHT_OF_FILE_NAME]){
     int counter = 0;
 
     fp = fopen(filename , "r");
-    if (fp == NULL){
-        printf("Error occurred while opening %s", filename);
-        return FILE_DID_NOT_OPEN;
-    }
 
     while(!feof(fp)){
         fgets(buffer,MAX_LENGHT_OF_LINE,fp);
