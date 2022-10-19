@@ -15,8 +15,8 @@ typedef struct{
 }student;
 
 int countNumberOfStudents(FILE*, char []);
-void UnosPodataka(FILE*,student*,char [],int);
-void Ispis(FILE*,student*,int,char []);
+void DataEntry(FILE*,student*,char [],int);
+void Print(FILE*,student*,int,char []);
 
 int main(void){
 
@@ -31,8 +31,8 @@ int main(void){
     numOfStudents = countNumberOfStudents(fp,filename);
     st = (student *)malloc(sizeof(student) * numOfStudents);
 
-    UnosPodataka(fp,st,filename,numOfStudents);
-    Ispis(fp,st,numOfStudents,filename);
+    DataEntry(fp,st,filename,numOfStudents);
+    Print(fp,st,numOfStudents,filename);
 
     fclose(fp);
     return EXIT;
@@ -60,7 +60,7 @@ int countNumberOfStudents(FILE *fp, char filename[LENGHT_OF_FILE_NAME]){
     return counter-1;
 }
 
-void UnosPodataka(FILE *fp, student *st, char filename[LENGHT_OF_FILE_NAME],int n){
+void DataEntry(FILE *fp, student *st, char filename[LENGHT_OF_FILE_NAME],int n){
     
     char buffer[MAX_LENGHT_OF_LINE] = { 0 };
     int i;
@@ -80,7 +80,7 @@ void UnosPodataka(FILE *fp, student *st, char filename[LENGHT_OF_FILE_NAME],int 
     fclose(fp);
 }
 
-void Ispis(FILE *fp,student *st, int n,char filename[LENGHT_OF_FILE_NAME]){
+void Print(FILE *fp,student *st, int n,char filename[LENGHT_OF_FILE_NAME]){
 
     char buffer[MAX_LENGHT_OF_LINE] = { 0 };
     int maxBrojBodova;
