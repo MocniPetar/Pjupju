@@ -29,7 +29,7 @@ int main(void){
     scanf(" %s", filename);
 
     numOfStudents = countNumberOfStudents(fp,filename);
-    printf("Number of students in the file %s: %d\n",filename, numOfStudents);
+    printf("\nNumber of students in the file %s: %d\n\n",filename, numOfStudents);
     st = (student *)malloc(sizeof(student) * numOfStudents);
 
     DataEntry(fp,st,filename,numOfStudents);
@@ -67,11 +67,6 @@ void DataEntry(FILE *fp, student *st, char filename[LENGHT_OF_FILE_NAME],int n){
     int i;
     
     fp = fopen(filename, "r");
-    if (fp == NULL){
-        printf("Error occurred while opening %s", filename);
-        exit(EXIT_FAILURE);
-    }
-
     fscanf(fp,"%*[^\n]\n"); //Za preskocit prvi red u tekst datoteci
 
     for(i=0;i<n;i++){
@@ -87,18 +82,13 @@ void Print(FILE *fp,student *st, int n,char filename[LENGHT_OF_FILE_NAME]){
     int maxBrojBodova;
     
     fp = fopen(filename, "r");
-    if (fp == NULL){
-        printf("Error occurred while opening %s", filename);
-        exit(EXIT_FAILURE);
-    }
-
     fscanf(fp,"%*s %*s %*s %d", &maxBrojBodova); //Sa %*s ignoriramo inpute tipa string
 
     int i;
     for(i = 0;i < n;i++){
-        printf("Ime i Prezime: %s %s \n", st[i].ime, st[i].prezime);
-        printf("Broj bodova: %d\n", st[i].bodovi);
-        printf("Relativan broj bodova: %.2f%%\n\n", ((float)st[i].bodovi/maxBrojBodova)*100);
+        printf("Name and Surname: %s %s \n", st[i].ime, st[i].prezime);
+        printf("Number of points: %d\n", st[i].bodovi);
+        printf("Relative score: %.2f%%\n\n", ((float)st[i].bodovi/maxBrojBodova)*100);
     }
 
     fclose(fp);
