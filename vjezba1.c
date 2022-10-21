@@ -32,13 +32,16 @@ int main(void) {
 
 	s = (student*)malloc(CountStudentsFromFile(filename) * sizeof(student));
 
-	printf("Broj studenata u datoteci %s je %d.\n", filename, CountStudentsFromFile(filename));
+	if(CountStudentsFromFile(filename!=FILE_DIDNT_OPEN))
+		printf("Broj studenata u datoteci %s je %d.\n", filename, CountStudentsFromFile(filename));
 	
 	Brstud = CountStudentsFromFile(filename);
 	Maxbr = CountPointsFromFile(filename, s);
 
 	GetStudentsInformation(filename, s, Brstud, Maxbr);
-	
+
+	free(s);
+
 	return PROGRAME_FINISHED;
 }
 
@@ -53,7 +56,7 @@ int CountStudentsFromFile(char *filename) {
 	if (fp == NULL) {
 
 		printf("Dear costumer, the file %s did not open!\r\n", filename);
-		exit( FILE_DIDNT_OPEN);
+		return FILE_DIDNT_OPEN;
 	}
 
 	while (!feof(fp)) {
@@ -77,6 +80,11 @@ int CountPointsFromFile(char* filename, student* s) {
 
 	fp = fopen(filename, "r");
 
+	if (fp == NULL) {
+
+		return FILE_DIDNT_OPEN;
+	}
+
 	for (i = 0; i < CountStudentsFromFile(filename); i++) {
 
 		fscanf(fp, "%s %s %d", s[i].ime, s[i].prezime, &s[i].bodovi);
@@ -95,6 +103,11 @@ void GetStudentsInformation(char* filename, student* s, int n, int Maxbr) {
 	float relativni_bodovi;
 	
 	fp = fopen(filename, "r");
+
+	if (fp == NULL) {
+
+		return FILE_DIDNT_OPEN;
+	}
 	
 	for (i = 0; i < n; i++) {
 
