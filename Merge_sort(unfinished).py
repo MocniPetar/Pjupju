@@ -30,4 +30,3 @@ print(merge_sort(list))
 
 elapsed_time = time.time() - st
 print("Runtime of programe:", elapsed_time * 1000)
-Neznasssss
