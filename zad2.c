@@ -136,8 +136,9 @@ int deleteElement(char* LastName, Position p){
 }
 
 int printList(Position p){
-
-    int i = 0;
+    
+    if(p == NULL)
+        printf("Lista je prazna!\n");
     while(p != NULL){
         printf("%s %s %d \n",p->firstName,p->lastName,p->birthYear);
         p = p->Next;
