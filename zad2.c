@@ -7,6 +7,7 @@
 #define ERROR (-1)
 #define MAX_NUM_OF_CHAR (256)
 
+struct Person;
 typedef struct Person *Position;
 typedef struct Person{
     char firstName[MAX_NUM_OF_CHAR];
