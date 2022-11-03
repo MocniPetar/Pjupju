@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <malloc.h>
 
 #define END_OF_PROGRAME (0);
 #define MAX_LINE (50)
