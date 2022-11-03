@@ -24,11 +24,11 @@ int PrintList(Position);
 int InsertInTheEnd(Position);
 int FindPersonByLastname(Position);
 int DeletePerson(Position);
-Position FindPrevious(Position, char*);
+Position FindPrevious(Position, char *);
 int AddAfter(Position);
-Position Find(Position, char*);
+Position Find(Position, char *);
 int AddBefore(Position);
-Position FindBefore(Position, char*);
+Position FindBefore(Position, char *);
 void Sort(Position);
 int WriteToFile(Position);
 int ReadFromFile(Position);
@@ -46,66 +46,66 @@ int main() {
 		.next = NULL
 	};
 
-	while (1) {
+	while(1){
 
-		printf("\nPlease insert a number of function you want to start: ");
-		printf("\n1. Insert a person");
-		printf("\n2. Print list");
-		printf("\n3. Add a person to the end of list");
-		printf("\n4. Find person by his lastname");
-		printf("\n5. Delete person from the list");
-		printf("\n6. Add person after an another person");
-		printf("\n7. Add person before an another person");
-		printf("\n8. Sort list by lastnames");
-		printf("\n9. Write in file");
-		printf("\n10. Read from file");
-		printf("\n11. End program");
-		printf("\nAnswer: ");
-		scanf("%d", &NumofFunc);
+	printf("\nPlease insert a number of function you want to start: ");
+	printf("\n1. Insert a person");
+	printf("\n2. Print list");
+	printf("\n3. Add a person to the end of list");
+	printf("\n4. Find person by his lastname");
+	printf("\n5. Delete person from the list");
+	printf("\n6. Add person after an another person");
+	printf("\n7. Add person before an another person");
+	printf("\n8. Sort list by lastnames");
+	printf("\n9. Write in file");
+	printf("\n10. Read from file");
+	printf("\n11. End program");
+	printf("\nAnswer: ");
+	scanf("%d", &NumofFunc);
 
+	
 
+	if (NumofFunc == 1)
+		AddPerson(&head);
 
-		if (NumofFunc == 1)
-			AddPerson(&head);
+	else if (NumofFunc == 2)
+		PrintList(&head);
 
-		else if (NumofFunc == 2)
-			PrintList(&head);
+	else if (NumofFunc == 3)
+		InsertInTheEnd(&head);
 
-		else if (NumofFunc == 3)
-			InsertInTheEnd(&head);
+	else if (NumofFunc == 4)
+		FindPersonByLastname(&head);
 
-		else if (NumofFunc == 4)
-			FindPersonByLastname(&head);
+	else if (NumofFunc == 5)
+		DeletePerson(&head);
 
-		else if (NumofFunc == 5)
-			DeletePerson(&head);
+	else if (NumofFunc == 6)
+		AddAfter(&head);
 
-		else if (NumofFunc == 6)
-			AddAfter(&head);
+	else if (NumofFunc == 7)
+		AddBefore(&head);
 
-		else if (NumofFunc == 7)
-			AddBefore(&head);
+	else if (NumofFunc == 8)
+		Sort(&head);
 
-		else if (NumofFunc == 8)
-			Sort(&head);
+	else if (NumofFunc == 9)
+		WriteToFile(&head);
 
-		else if (NumofFunc == 9)
-			WriteToFile(&head);
+	else if (NumofFunc == 10)
+		ReadFromFile(&head);
 
-		else if (NumofFunc == 10)
-			ReadFromFile(&head);
+	else if (NumofFunc == 11) {
 
-		else if (NumofFunc == 11) {
+		DeleteFromBeginning(&head);
+		printf("Memory is clean!");
+		break;
+	}
 
-			DeleteFromBeginning(&head);
-			printf("Memory is clean!");
-			break;
-		}
+	else
+		printf("\nWrong input!\n");
 
-		else
-			printf("\nWrong input!\n");
-
-		printf("\n");
+	printf("\n");
 
 	}
 
@@ -120,7 +120,7 @@ int InsertData(Position P) {
 	return END_OF_PROGRAM;
 }
 
-int AddPerson(Position P) {
+int AddPerson(Position P){
 
 	Position q = NULL;
 
@@ -148,7 +148,7 @@ int PrintList(Position P) {
 		printf("\nList: ");
 
 		while (P != NULL) {
-			if ((P->firstname && P->lastname) != NULL && P->birthyear != 0)
+			if ((P->firstname && P->lastname) != NULL && P->birthyear != 0) 
 				printf("\n%s %s %d", P->firstname, P->lastname, P->birthyear);
 			P = P->next;
 		}
@@ -213,7 +213,7 @@ int DeletePerson(Position P) {
 	Position previous = NULL;
 	Position Current = NULL;
 
-	previous = FindPrevious(P, lastnm);
+	previous = FindPrevious(P,lastnm);
 
 	if (previous == NULL)
 		return ERROR;
@@ -234,7 +234,7 @@ Position FindPrevious(Position P, char* lastnm) {
 	Previous = P;
 	Current = Previous->next;
 
-	while (Current != NULL && (strcmp(lastnm, Current->lastname) != 0)) {
+	while (Current != NULL && (strcmp(lastnm,Current->lastname) != 0)) {
 
 		Previous = Current;
 		Current = Previous->next;
@@ -248,7 +248,7 @@ Position FindPrevious(Position P, char* lastnm) {
 
 Position Find(Position P, char* lastnm) {
 
-	while (P->next != NULL && strcmp(P->lastname, lastnm) != 0)
+	while (P->next!=NULL && strcmp(P->lastname, lastnm)!=0)
 		P = P->next;
 
 	if (P == NULL)
@@ -275,7 +275,7 @@ int AddBefore(Position P) {
 	return END_OF_PROGRAM;
 }
 
-Position FindBefore(Position P, char* lastnm) {
+Position FindBefore(Position P, char * lastnm) {
 
 	Position prev = NULL;
 	Position curr = NULL;
@@ -283,7 +283,7 @@ Position FindBefore(Position P, char* lastnm) {
 	prev = P;
 	curr = prev->next;
 
-	while (curr != NULL && strcmp(curr->lastname, lastnm) != 0) {
+	while (curr!=NULL && strcmp(curr->lastname, lastnm)!=0) {
 
 		prev = curr;
 		curr = prev->next;
@@ -312,7 +312,7 @@ void Sort(Position P) {
 				temp = j->next;
 				prev_j->next = temp;
 				j->next = temp->next;
-				temp->next = j;
+				temp->next=j;
 
 				j = temp;
 			}
@@ -325,9 +325,9 @@ void Sort(Position P) {
 	}
 }
 
-int WriteToFile(Position P) {
+int WriteToFile(Position P){
 
-	FILE* fp = NULL;
+	FILE* fp=NULL;
 
 	char filename[MAX_LINE];
 
@@ -342,7 +342,7 @@ int WriteToFile(Position P) {
 	P = P->next;
 
 	while (P != NULL) {
-
+		
 		fprintf(fp, "\n%s %s %d", P->firstname, P->lastname, P->birthyear);
 		P = P->next;
 	}
@@ -352,12 +352,12 @@ int WriteToFile(Position P) {
 	return END_OF_PROGRAM;
 }
 
-int ReadFromFile(Position P) {
+int ReadFromFile(Position P){
 
 	FILE* fp;
 
 	char filename[MAX_LINE];
-
+	
 	Position temp;
 
 	printf("\nInsert filename: ");
@@ -365,15 +365,15 @@ int ReadFromFile(Position P) {
 
 	fp = fopen(filename, "r");
 
-	if (fp == NULL)
+	if (fp == NULL) 
 		return ERROR;
 
 	while (feof(fp) == 0) {
 
 		temp = (Position)malloc(sizeof(struct person));
 
-		fscanf(fp, " %s %s %d", temp->firstname, temp->lastname, &temp->birthyear);
-
+		fscanf(fp," %s %s %d", temp->firstname, temp->lastname, &temp->birthyear);
+		
 
 		temp->next = P->next;
 		P->next = temp;
@@ -385,11 +385,11 @@ int ReadFromFile(Position P) {
 	return END_OF_PROGRAM;
 }
 
-void DeleteFromBeginning(Position P) {
+void DeleteFromBeginning(Position P){
 
 	Position temp;
 
-	while (P->next != NULL) {
+	while (P->next!=NULL) {
 		temp = P->next;
 		P->next = P->next->next;
 		free(temp);
