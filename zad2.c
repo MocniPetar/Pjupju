@@ -7,6 +7,7 @@
 #define ERROR (-1)
 #define MAX_NUM_OF_CHAR (256)
 
+struct Person;
 typedef struct Person *Position;
 typedef struct Person{
     char firstName[MAX_NUM_OF_CHAR];
@@ -136,8 +137,11 @@ int deleteElement(char* LastName, Position p){
 }
 
 int printList(Position p){
-
-    int i = 0;
+    
+    if(p == NULL){
+        printf("Lista je prazna!\n");
+        return ERROR;
+    }
     while(p != NULL){
         printf("%s %s %d \n",p->firstName,p->lastName,p->birthYear);
         p = p->Next;
