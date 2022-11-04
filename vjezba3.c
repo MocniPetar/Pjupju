@@ -185,7 +185,7 @@ int FindPersonByLastname(Position P) {
 	return END_OF_PROGRAM;
 }
 
-AddAfter(Position P) {
+int AddAfter(Position P) {
 
 	char lastnm[MAX_LINE] = { 0 };
 
