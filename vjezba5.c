@@ -29,7 +29,8 @@ int main(){
 
     result = ReadFromFile(filename);
 
-    printf("Result: %.2f", result);
+    if(result != -1)
+        printf("Result: %.2f", result);
 
     free(head);
 
@@ -62,13 +63,13 @@ float ReadFromFile(char* filename) {
             if (strcmp(mark, "+") != 0 && strcmp(mark, "-") != 0 && strcmp(mark, "*") != 0 && strcmp(mark, "/") != 0) {
                 printf("The operation or value is not correct!");
                 fclose(fp);
-                exit(1);
+                return ERROR;
             }
 
             if (head==NULL) {
                 printf("Error, operation can not be first!");
                 fclose(fp);
-                exit(1);
+                return ERROR;
             }
 
             num1 = Pop();
@@ -89,7 +90,7 @@ float ReadFromFile(char* filename) {
                     printf("Undefined!");
                     Pop();
                     fclose(fp);
-                    exit(1);
+                    return ERROR;
                 }
                 else
                     Push(num2 / num1);
@@ -109,7 +110,7 @@ float ReadFromFile(char* filename) {
 
     printf("There is more than one element left in stack!\n");
     fclose(fp);
-    exit(1);
+    return ERROR;
 }
 
 int Push(float x){
