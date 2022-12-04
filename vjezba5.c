@@ -1,156 +1,148 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
 
 #define END (0)
 #define ERROR (-1)
 #define MAX_LINE (1024)
 
-static int count = 0;
-
-struct Stog;
+typedef struct Stog;
 typedef struct Stog* Position;
+struct Stog {
+    float broj;
+    Position next;
+} *head = NULL; 
 
-typedef struct Stog {
-	float El;
-	Position next;
-}st;
+int Push(float);
+int Pop();
+float ReadFromFile(char*);
 
-Position ReadFromFile(char *);
-int PrintList(Position);
-int Add(Position, char *);
+int main(){
 
-int main() {
+    float result = 0.0;
+    char filename[MAX_LINE] = { 0 };
 
-	char filename[MAX_LINE] = { 0 };
-	int i;
+    printf("Enter the filename: ");
+    scanf(" %s", filename);
 
-	st Head = {
-		.El = 0,
-		.next=NULL
-	};
+    result = ReadFromFile(filename);
 
-	printf("Insert filename: ");
-	scanf(" %s", filename);
+    printf("Result: %.2f", result);
 
-	Position List = NULL;
+    free(head);
 
-	List = ReadFromFile(filename);
-
-	if (List == NULL) {
-		printf("\nThe list is empty!\n");
-		return END;
-	}
-	for (i = 0; i < count; i++) {
-		PrintList(&List[i]);
-	}
-
-	return END;
+    return END;
 }
 
-Position ReadFromFile(char * filename) {
+float ReadFromFile(char* filename) {
+     
+    char buffer[MAX_LINE] = { 0 }, mark[MAX_LINE] = { 0 };
+    char* p = NULL;
+    float num1 = 0.0, num2 = 0.0, value=0.0;
+    int n = 0;
 
-	FILE* fp=NULL;
+    FILE* fp = NULL;
+    fp = fopen(filename, "r");
 
-	char buffer[MAX_LINE] = { 0 };
+    if (fp == NULL) {
+        printf("File did not open!");
+        return ERROR;
+    }
 
-	int n = 0;
+    fgets(buffer, MAX_LINE, fp);
+    p = buffer;
 
-	Position List = NULL;
-	Position q = NULL;
+    while (strlen(p) > 0)
+    {
+        if (sscanf(p, "%f %n", &value, &n) <= 0){
+            sscanf(p, "%s %n", mark, &n);
 
-	fp = fopen(filename, "r");
+            if (strcmp(mark, "+") != 0 && strcmp(mark, "-") != 0 && strcmp(mark, "*") != 0 && strcmp(mark, "/") != 0) {
+                printf("The operation or value is not correct!");
+                fclose(fp);
+                exit(1);
+            }
 
-	if (fp == NULL) {
+            if (head==NULL) {
+                printf("Error, operation can not be first!");
+                fclose(fp);
+                exit(1);
+            }
 
-		printf("Warning!");
-		return NULL;
-	}
+            num1 = Pop();
+            num2 = Pop();
+            
+            
+            if (strcmp(mark, "+") == 0) 
+                Push(num2 + num1);
 
-	while (1) {
-		if (fgets(buffer, MAX_LINE, fp) == NULL)
-			break;
-		count++;
-	}
+            else if (strcmp(mark, "-") == 0)
+                Push(num2 - num1);
 
+            else if (strcmp(mark, "*") == 0)
+                Push(num2 * num1);
 
-	List = (Position)malloc(sizeof(st) * count);
+            else{
+                if (num1 == 0.0) {
+                    printf("Undefined!");
+                    Pop();
+                    fclose(fp);
+                    exit(1);
+                }
+                else
+                    Push(num2 / num1);
+            } 
+        }
 
-	rewind(fp);
+        else 
+            Push(value);
 
-	while (1) {
-		if (fgets(buffer, MAX_LINE, fp) == NULL)
-			break;
-		st Head = {
-			.El = 0,
-			.next = NULL
-		};
-		if (Add(&Head, buffer) < 0) {
-			printf("Error!!\n");
-			return NULL;
-		}
-		List[n] = Head;
-		n++;
-	}
+        p += n;
+    }
+        
+    if (head != NULL && head->next == NULL) {
+        fclose(fp);
+        return Pop();
+    }
 
-	fclose(fp);
-	return List;
+    printf("There is more than one element left in stack!\n");
+    fclose(fp);
+    exit(1);
 }
 
-int Add(Position P, char *buffer) {
+int Push(float x){
 
-	if (P == NULL)
-		return ERROR;
+    Position temp =NULL;
+    temp = (Position)malloc(sizeof(struct Stog));
 
-	Position q = NULL;
-	Position temp = NULL;
+    if (temp == NULL)
+    {
+        printf("ERROR!");
+        return ERROR;
+    }
 
-	char* p = NULL;
-	char mark[MAX_LINE] = { 0 };
-	int n = 0;
+    temp->broj = x;
+    temp->next = NULL;
 
+    temp->next = head;
+    head = temp;
 
-	p = buffer;
-
-	while (strlen(p) > 0) {
-
-		q = (Position)malloc(sizeof(st));
-
-		if (sscanf(p, "%f %n", &q->El, &n) <= 0)
-			sscanf(p, "%s %n", mark, &n);
-
-		else
-			sscanf(p, "%f %n", &q->El, &n);
-		
-		while (P->next != NULL)
-			P = P->next;
-
-		temp = P;
-
-		q->next = P->next;
-		P->next = q;
-
-		p += n;
-	}
-
-	return END;
+    return END;
 }
 
-int PrintList(Position P) {
+int Pop(){
 
-	if (P == NULL) {
-		printf("The list is empty!!\n");
-		return ERROR;
-	}
+    Position temp;
+    float result = 0.0;
 
-	while (P->next != NULL) {
-		printf("%f ", P->next->El);
-		P = P->next;
-	}
+    temp = head;
+    result = temp->broj;
 
-	printf("\n");
+    head = head->next;
+    free(temp);
+    temp = NULL;
 
-	return END;
+    return result;
 }
