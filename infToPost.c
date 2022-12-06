@@ -53,7 +53,7 @@ int main(){
 Pos readFromFile(char *FileName){
 
     FILE *fp = NULL , *fc = NULL;
-    char buffer[MAX_NUM_OF_CHAR], opr[MAX_NUM_OF_CHAR] = {0}, num[MAX_NUM_OF_CHAR] = {0}, prev = ' ', C;
+    char buffer[MAX_NUM_OF_CHAR], opr[MAX_NUM_OF_CHAR] = {0}, num[MAX_NUM_OF_CHAR] = {0};
     char *p = NULL;
     int check = 0, n = 0, i = 0;
     Pos izraz = NULL, post_temp = NULL, q_p = NULL;
