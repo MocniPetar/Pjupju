@@ -53,12 +53,11 @@ int main(){
 Pos readFromFile(char *FileName){
 
     FILE *fp = NULL , *fc = NULL;
-    char buffer[MAX_NUM_OF_CHAR], opr[MAX_NUM_OF_CHAR] = {0}, num[MAX_NUM_OF_CHAR] = {0};
+    char buffer[MAX_NUM_OF_CHAR], opr[MAX_NUM_OF_CHAR] = {0}, num[MAX_NUM_OF_CHAR] = {0}, new_fileName[256] = "newFile.txt";
     char *p = NULL;
     int check = 0, n = 0, i = 0;
     Pos izraz = NULL, post_temp = NULL, q_p = NULL;
     pos stog_temp = NULL, start = NULL, prev_ = NULL;
-    char new_fileName[256] = "newFile.txt";
 
     izraz = (Pos)malloc(sizeof(P));
 
