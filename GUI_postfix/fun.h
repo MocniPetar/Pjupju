@@ -26,7 +26,7 @@ int file_select(GtkFileChooserButton *button, gpointer ptr);
 void open_dialog1(GtkWidget *window, gpointer ptr);
 void open_dialog2(GtkWidget *window, gpointer ptr);
 int Push(float r);
-int Pop();
+float Pop();
 float ReadFromFile(char* c);
 float Fun(char *c);
 char* ReadExpressionFromFile(char *c, char a[]);

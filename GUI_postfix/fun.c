@@ -275,7 +275,7 @@ int Push(float x){
     return END;
 }
 
-int Pop(){
+float Pop(){
 
     Position temp;
     float result = 0.0;
