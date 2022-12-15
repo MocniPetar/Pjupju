@@ -29,8 +29,10 @@ typedef struct listaRacuna{
 
 int readFromFile(RacuniPos, char*);
 int readBillContent(RacuniPos, char*);
-int printBills(RacuniPos);
-int freeMemory(RacuniPos);
+int printWithRecursionBillContent(RacunPos);
+int printWithRecursionDateAndName(RacuniPos);
+int freeMemoryWithRecursion(RacuniPos);
+int freeContent(RacunPos);
 int comparison(RacuniPos, RacuniPos);
 int moneySpent(RacuniPos, char*, int, int, int, int, int, int);
 RacunPos sortArticles(RacuniPos);
