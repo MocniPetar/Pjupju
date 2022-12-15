@@ -68,9 +68,22 @@ int file_select(GtkFileChooserButton *button, gpointer ptr){
     snprintf(buffer, MAX_LINE, " %.2f", result);
     gtk_label_set_text(GTK_LABEL(ptr), buffer);
 
-    if(result == 0)
-        head=NULL;
+     if(result == 0){
 
+            if(head!=NULL){
+
+            struct Stog* temp=NULL;
+            while(head->next!=NULL){
+
+                temp=head->next;
+                head->next=head->next->next;
+                free(temp);
+                }
+
+            head=NULL;
+            }
+    }
+    
     free(head);
     return END;
 }
@@ -275,7 +288,7 @@ int Push(float x){
     return END;
 }
 
-int Pop(){
+float Pop(){
 
     Position temp;
     float result = 0.0;

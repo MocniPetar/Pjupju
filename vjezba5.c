@@ -16,7 +16,7 @@ struct Stog {
 } *head = NULL; 
 
 int Push(float);
-int Pop();
+float Pop();
 float ReadFromFile(char*);
 
 int main(){
@@ -69,6 +69,11 @@ float ReadFromFile(char* filename) {
             if (head==NULL) {
                 printf("Error, operation can not be first!");
                 fclose(fp);
+                return ERROR;
+            }
+
+            if(head->next==NULL){
+                printf("There is more than one element left in stack!\n");
                 return ERROR;
             }
 
@@ -133,7 +138,7 @@ int Push(float x){
     return END;
 }
 
-int Pop(){
+float Pop(){
 
     Position temp;
     float result = 0.0;

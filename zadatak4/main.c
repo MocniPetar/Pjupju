@@ -146,7 +146,6 @@ int addElement(pos p, char* buffer){
 
     pos temp = NULL, prev = NULL, q = NULL;
 
-    // Objasni ovo na papiru !!!
     while(strlen(P) > 0){
         q = (pos)malloc(sizeof(pol));
         if(q == NULL)

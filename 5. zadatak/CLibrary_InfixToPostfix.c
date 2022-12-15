@@ -57,50 +57,42 @@ Pos readFromFile(char *FileName){
     izraz = (Pos)malloc(sizeof(P));
     strcpy(buffer,FileName);
 
-    while(one_expression == 1){
-
-        one_expression--;
-
-        P Post = { .PostFix = {0}, .next = NULL };
-        S Stog = { .sign = {0}, .next = NULL };
-
-        post_temp = &Post;
-        stog_temp = &Stog;
-        p = buffer;
-
-        while(strlen(p) > 0){
-            q_p = (Pos)malloc(sizeof(P));
-            if(sscanf(p,"%d %n", &check, &n) <= 0){
-                sscanf(p,"%s %n", opr, &n);
-                post_temp = oprStog(&Stog, stog_temp, post_temp, opr);
+    P Post = { .PostFix = {0}, .next = NULL };
+    S Stog = { .sign = {0}, .next = NULL };
+    post_temp = &Post;
+    stog_temp = &Stog;
+    p = buffer;
+    while(strlen(p) > 0){
+        q_p = (Pos)malloc(sizeof(P));
+        if(sscanf(p,"%d %n", &check, &n) <= 0){
+            sscanf(p,"%s %n", opr, &n);
+            post_temp = oprStog(&Stog, stog_temp, post_temp, opr);
+            stog_temp = stog_temp->next;
+            if(stog_temp == NULL){
+                stog_temp = &Stog;
                 stog_temp = stog_temp->next;
-                if(stog_temp == NULL){
-                    stog_temp = &Stog;
-                    stog_temp = stog_temp->next;
-                }
             }
-            else {
-                sscanf(p,"%s %n", opr, &n);
-                Push(post_temp,opr);
-                post_temp = post_temp->next;
-            }
-            p+=n;
         }
-        
-        stog_temp = start = prev_ = &Stog;
-        while(start->next != NULL){
-            while(stog_temp->next != NULL){
-                prev_ = stog_temp;
-                stog_temp = stog_temp->next;
-            }
-            Push(post_temp,stog_temp->sign);
+        else {
+            sscanf(p,"%s %n", opr, &n);
+            Push(post_temp,opr);
             post_temp = post_temp->next;
-            pop(prev_);
-            stog_temp = start;
         }
-        izraz[i] = Post;
-        i++;
+        p+=n;
     }
+        
+    stog_temp = start = prev_ = &Stog;
+    while(start->next != NULL){
+        while(stog_temp->next != NULL){
+            prev_ = stog_temp;
+            stog_temp = stog_temp->next;
+        }
+        Push(post_temp,stog_temp->sign);
+        post_temp = post_temp->next;
+        pop(prev_);
+        stog_temp = start;
+    }
+    izraz = &Post;
     return izraz;
 }
 
