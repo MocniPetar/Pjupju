@@ -118,58 +118,55 @@ int readBillContent(RacuniPos P, char *BillFileName){
     return END;
 }
 
-int printBills(RacuniPos p){
-    if(p == NULL){
-        printf("Bills not found!\n");
-        return ERROR;
-    }
-    int line_count = 0;
-    RacunPos q = NULL;
+int printWithRecursionDateAndName(RacuniPos p){
     
-    printf("\n");
-    while(p != NULL){
+    if(p == NULL){
         line_Print();
-        q = p->Sadrzaj;
-        printf("\t%s\n",p->Racun_ID);
-        printf("\t%d-%d-%d\n",p->Godina,p->Mjesec,p->Dan);
-        p->Sadrzaj = p->Sadrzaj->Next;
-        while(p->Sadrzaj != NULL){
-            printf("\t%s %d %.2f KN\n",p->Sadrzaj->Artikl,p->Sadrzaj->Kolicina,p->Sadrzaj->Cijena);
-            p->Sadrzaj = p->Sadrzaj->Next;
-        }
-        printf("\n");
-        p->Sadrzaj = q;
-        p = p->Next;
-        free(q);
+        return END;
     }
 
     line_Print();
+    printf("\t%s\n",p->Racun_ID);
+    printf("\t%d-%d-%d\n",p->Godina,p->Mjesec,p->Dan);
+    printWithRecursionBillContent(p->Sadrzaj);
+    printf("\n");
+    return printWithRecursionDateAndName(p->Next);
 
-    return END;
 }
 
-int freeMemory(RacuniPos p){
+int printWithRecursionBillContent(RacunPos p){
 
-    if(p->Next == NULL){
-        printf("There is no memory to free!\n");
-        return ERROR;
-    }
-    
+    if(p->Next == NULL)
+        return END;
+
+    printf("\t%s %d %.2f KN\n",p->Next->Artikl,p->Next->Kolicina,p->Next->Cijena);
+    return printWithRecursionBillContent(p->Next);
+
+}
+
+int freeMemoryWithRecursion(RacuniPos p){
+
+    if(p->Next == NULL)
+        return END;
+
     RacuniPos temp = NULL;
-    RacunPos sadrzaj_temp = NULL;
+    freeContent(p->Next->Sadrzaj);
+    temp = p->Next;
+    p->Next = p->Next->Next;
+    free(temp);
+    return freeMemoryWithRecursion(p);
+}
 
-    while(p->Next != NULL){
-        while(p->Next->Sadrzaj->Next != NULL){
-            sadrzaj_temp = p->Next->Sadrzaj->Next;
-            p->Next->Sadrzaj->Next = p->Next->Sadrzaj->Next->Next;
-            free(sadrzaj_temp);
-        }
-        temp = p->Next;
-        p->Next = p->Next->Next;
-        free(temp);
-    }
+int freeContent(RacunPos p){
 
-    return END;
+    if(p->Next == NULL)
+        return END;
+
+    RacunPos temp = NULL;
+    temp = p->Next;
+    p->Next = p->Next->Next;
+    free(temp);
+    return freeContent(p); 
 }
 
 int comparison(RacuniPos p1, RacuniPos p2){
