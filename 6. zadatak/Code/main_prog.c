@@ -16,7 +16,7 @@ int main(){
         scanf(" %[^\n]s",user_input);
 
         if(strcmp(user_input,"YES") == 0){
-            printBills(Head.Next);
+            printWithRecursionDateAndName(Head.Next);
             printf("OPTIONS:\n");
             printf("\t1. To stop the program type the keyword STOP.\n");
             printf("\t2. To check out the status of an article type the keyword CONTINUE.\n\t C> ");
@@ -50,6 +50,6 @@ int main(){
             printf("\n\n\tUKNOWN KEYWORD!\n\n");
 
     }
-    freeMemory(&Head);
+    freeMemoryWithRecursion(&Head);
     return END;
 }
