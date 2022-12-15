@@ -1,0 +1,4 @@
+/Users/pierstrbad/Desktop/Sistem u Ducanima/Racuni/Racun_1.txt
+/Users/pierstrbad/Desktop/Sistem u Ducanima/Racuni/Racun_2.txt
+/Users/pierstrbad/Desktop/Sistem u Ducanima/Racuni/Racun_3.txt
+/Users/pierstrbad/Desktop/Sistem u Ducanima/Racuni/Racun_4.txt
