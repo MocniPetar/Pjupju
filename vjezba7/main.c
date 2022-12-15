@@ -18,6 +18,7 @@ int main() {
 	ParDir = &root;
 
 	while (1) {
+		printf("You are in %s directory\n", ParDir->name);
 		printf("Insert number of function: ");
 		printf("\n1. - md");
 		printf("\n2. - cd dir");
@@ -27,17 +28,43 @@ int main() {
 		printf("\nAnswer: ");
 		scanf("%d", &n);
 
-		if (n == 1)
-			Make(ParDir);
-		else if (n == 2)
-			ParDir = GotoDir(ParDir);
+		if (n == 1) {
+			Position q = NULL;
+
+			q = (Position)malloc(sizeof(dir));
+			q->sibling = NULL;
+			q->child = NULL;
+			q->parent = ParDir;
+
+			printf("Insert name of new directory: ");
+			scanf(" %s", q->name);
+
+			ParDir->child=Make(ParDir->child, q);
+		}
+
+		else if (n == 2) {
+			char Name[MAX_LINE] = { 0 };
+
+			printf("Insert name of directory you want to go to: ");
+			scanf(" %s", Name);
+
+			ParDir = GotoDir(ParDir->child,Name);
+		}
+
 		else if (n == 3)
 			ParDir = ExitDir(ParDir);
-		else if (n == 4)
-			Print(ParDir);
-		else if (n == 5)
+
+		else if (n == 4) {
+			int i = 0;
+			printf("\nDirectory %s:", ParDir->name);
+			Print(ParDir->child, i);
+		}
+
+		else if (n == 5) {
+			ParDir = Delete(ParDir->child);
 			break;
-			
+		}
+
 		else
 			printf("Wrong input!\n");
 

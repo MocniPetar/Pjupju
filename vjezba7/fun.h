@@ -18,9 +18,10 @@ typedef struct direktorij {
 	Position parent;
 }dir;
 
-int Print(Position);
-int Make(Position);
+void Print(Position, int);
+Position Make(Position, Position);
 Position ExitDir(Position);
-Position GotoDir(Position);
+Position GotoDir(Position, char *);
+Position Delete(Position);
 
 #endif
