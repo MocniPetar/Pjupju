@@ -45,6 +45,12 @@ int main() {
 				scanf("%d", &b);
 
 				if (b == 1) {
+
+					if (root->El == NULL) {
+						printf("\n\tTree is empty!\n\n");
+						break;
+					}
+
 					char mark[MAX_LINE] = { 0 };
 
 					printf("\n\tInsert which method you want to print:");
@@ -72,6 +78,12 @@ int main() {
 				}
 
 				else if (b == 2) {
+
+					if (root->El == NULL) {
+						printf("\n\tTree is empty!\n\n");
+						break;
+					}
+					
 					printf("\n\tRoot: %s\n", root->El);
 					printf("\n\tPreorder expression: ");
 					PrintPreOrder(root);
@@ -79,6 +91,12 @@ int main() {
 				}
 
 				else if (b == 3) {
+
+					if (root->El == NULL) {
+						printf("\n\tTree is empty!\n\n");
+						break;
+					}
+
 					printf("\n\tRoot: %s\n", root->El);
 					printf("\n\tPostorder expression: ");
 					PrintPostOrder(root);
@@ -86,6 +104,12 @@ int main() {
 				}
 
 				else if(b==4){
+
+					if (root->El == NULL) {
+						printf("\n\tTree is empty!\n\n");
+						break;
+					}
+
 					printf("\n\tRoot: %s\n", root->El);
 					printf("\n\tLevel order expression: ");
 					PrintLevelOrder(root);

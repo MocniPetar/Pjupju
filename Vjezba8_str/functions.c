@@ -7,9 +7,9 @@ Position Insert(Position p, Position q) {
 	if (NULL == p)
 		return q;
 
-	if (strcmp(p->El, q->El)>0)
+	if (strcmp(p->El, q->El) < 0)
 		p->Right = Insert(p->Right, q);
-	else if (strcmp(p->El, q->El) < 0)
+	else if (strcmp(p->El, q->El) > 0)
 		p->Left = Insert(p->Left, q);
 
 	else {
@@ -113,10 +113,10 @@ Position DeleteElement(Position p, char* a) {
 		return p;
 	}
 
-	if (strcmp(p->El, a) < 0)
+	if (strcmp(p->El, a) > 0)
 		p->Left = DeleteElement(p->Left, a);
 
-	else if (strcmp(p->El, a) > 0)
+	else if (strcmp(p->El, a) < 0)
 		p->Right = DeleteElement(p->Right, a);
 
 	else {
@@ -124,7 +124,6 @@ Position DeleteElement(Position p, char* a) {
 			Position temp = NULL;
 			temp = FindMax(p->Left);
 			strcpy(p->El, temp->El);
-			//p->El = temp->El;
 			p->Left = DeleteElement(p->Left, temp->El);
 		}
 
@@ -132,7 +131,6 @@ Position DeleteElement(Position p, char* a) {
 			Position temp = NULL;
 			temp = FindMin(p->Right);
 			strcpy(p->El, temp->El);
-			//p->El = temp->El;
 			p->Right = DeleteElement(p->Right, temp->El);
 		}
 
@@ -172,9 +170,9 @@ Position Find(Position p, char* a) {
 	if (NULL == p)
 		return NULL;
 
-	if (strcmp(p->El, a) > 0)
-		return Find(p->Right, a);
 	if (strcmp(p->El, a) < 0)
+		return Find(p->Right, a);
+	if (strcmp(p->El, a) > 0)
 		return Find(p->Left, a);
 
 	return p;
